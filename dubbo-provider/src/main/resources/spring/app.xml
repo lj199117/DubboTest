@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://code.alibabatech.com/schema/dubbo 
+		http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<context:component-scan base-package="com.dubbo">
+		<context:exclude-filter type="regex" expression=".*Test"/>
+		<context:exclude-filter type="regex" expression=".*\.mvc\..*"/>
+	</context:component-scan>
+	
+	<dubbo:application name="demo-provider"/>
+	<dubbo:registry protocol="zookeeper" address="zookeeper://192.168.5.128:2181" />
+	<dubbo:protocol name="dubbo" port="20888"/>
+	<!-- <dubbo:monitor protocol="registry"/>
+	<dubbo:provider protocol="dubbo" filter="-exception"/> -->
+	
+	<dubbo:service interface="com.dubbo.service.DemoService" ref="demoServiceImpl" />
+	
+</beans>
