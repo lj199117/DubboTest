@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.pom</groupId>
-		<artifactId>PomMain</artifactId>
+		<artifactId>main-pom</artifactId>
 		<version>0.1.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>dubbo-provider</artifactId>
