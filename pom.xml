@@ -11,7 +11,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	
-	<!-- <dependencyManagement>
+	<dependencyManagement>
 		<dependencies>
 			<dependency>
 				<groupId>com.webull.framework</groupId>
@@ -19,7 +19,7 @@
 				<version>0.1.0-SNAPSHOT</version>
 			</dependency>
 		</dependencies>
-	</dependencyManagement> -->
+	</dependencyManagement>
 	<modules>
 		<module>dubbo-provider</module>
 		<module>dubbo-consummer</module>

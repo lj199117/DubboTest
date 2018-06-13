@@ -17,7 +17,9 @@
 	</context:component-scan>
 	
 	<dubbo:application name="demo-provider"/>
-	<dubbo:registry protocol="zookeeper" address="zookeeper://192.168.5.128:2181" />
+	<!-- 单个注册中心 -->
+	<!-- <dubbo:registry protocol="zookeeper" address="zookeeper://192.168.5.128:2181" /> -->
+	<dubbo:registry protocol="zookeeper" address="192.168.40.201:2181,192.168.40.202:2181,192.168.40.203:2181" />
 	<dubbo:protocol name="dubbo" port="20888"/>
 	<!-- <dubbo:monitor protocol="registry"/>
 	<dubbo:provider protocol="dubbo" filter="-exception"/> -->

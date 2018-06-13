@@ -11,9 +11,19 @@
 		http://code.alibabatech.com/schema/dubbo 
 		http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
-	<import resource="classpath:/dubbo-api/client.xml" />
-	
-	<dubbo:application name="demo-provider"/>
-	<dubbo:registry protocol="zookeeper" address="zookeeper://192.168.5.128:2181" />
+	<!-- <dubbo:reference id="msgService" interface="com.webull.message.client.service.MsgService" 
+		group="webull-message-center-lijin" 
+		version="0.1.0" 
+		timeout="3000" 
+		retries="0" 
+		url="dubbo://192.168.5.1:20888" />
+		
+	<dubbo:application name="webull-message-center"/> -->
+	<!-- 单个注册中心 -->
+	<!-- <dubbo:registry protocol="zookeeper" address="zookeeper://192.168.5.128:2181" /> -->
+	<dubbo:registry protocol="zookeeper" address="192.168.40.201:2181,192.168.40.202:2181,192.168.40.203:2181" />
 	<dubbo:protocol name="dubbo" port="20888"/>
+	
+	<import resource="classpath:/dubbo-api/client.xml" />
+	<dubbo:application name="demo-provider"/>
 </beans>
