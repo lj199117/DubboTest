@@ -1,18 +1,16 @@
-package com.dubbo.service;
+package com.dubbo.test;
 
-import com.dubbo.MyException;
-import org.springframework.stereotype.Service;
+import com.dubbo.service.DemoService;
 
-@Service
 public class DemoServiceImpl implements DemoService {
 
 	public String sayHello(String name, Throwable throwable) throws Throwable{
 		Exception e = null;
-		try {
+		/*try {
 			int i = 1/0;
 		} catch (Throwable t) {
 			e = new Exception(t);
-		}
+		}*/
 
 		if(throwable != null) {
 			if(e == null) {

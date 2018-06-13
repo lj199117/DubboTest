@@ -21,23 +21,43 @@
 	</build>
 	
 	<dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>compile</scope>
+            <optional>true</optional>
+        </dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<scope>compile</scope>
+			<optional>true</optional>
+		</dependency>
+
 		<!-- 本身模块接口 -->
 		<dependency>
 			<groupId>com.webull.message</groupId>
 			<artifactId>webull-message-client</artifactId>
 			<version>0.1.0-SNAPSHOT</version>
 			<scope>provided</scope>
-		</dependency>
-		
-		<dependency>
-			<groupId>com.webull.framework</groupId>
-			<artifactId>webull-framework</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>com.webull.framework</groupId>
+					<artifactId>webull-framework</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		
 		<dependency>
 			<groupId>com.dubbo</groupId>
 			<artifactId>dubbo-api</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.webull.framework</groupId>
+			<artifactId>webull-framework</artifactId>
 		</dependency>
 	</dependencies>
 </project>

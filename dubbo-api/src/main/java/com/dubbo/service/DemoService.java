@@ -1,5 +1,5 @@
 package com.dubbo.service;
 
 public interface DemoService {
-	String sayHello(String name);
+	public String sayHello(String name, Throwable throwable) throws Throwable;
 }

@@ -1,62 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--设置log4j2的自身log级别为warn-->
-<configuration status="warn">
+<Configuration status="warn" monitorInterval="5">
+    <Properties>
+        <Property name="logPath">${env:LOG_ROOT:-logs}/${env:pom_a:-dubbo-provide}</Property>
+    </Properties>
 
-    <appenders>
-        <console name="Console" target="SYSTEM_OUT">
-            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
-        </console>
-
-        <RollingFile name="RollingFileInfo" fileName="${sys:user.home}/logs/hpaasvc/info.log"
-                     filePattern="${sys:user.home}/logs/hpaasvc/$${date:yyyy-MM}/info-%d{yyyy-MM-dd}-%i.log">
-            <Filters>
-                <ThresholdFilter level="INFO"/>
-                <ThresholdFilter level="WARN" onMatch="DENY" onMismatch="NEUTRAL"/>
-            </Filters>
-            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
+    <Appenders>
+        <Console name="console">
+            <PatternLayout pattern="%d %-5p [%t] %m (%F:%L)%c.%M%n" />
+        </Console>
+        <!-- 
+        <RollingRandomAccessFile name="elkFile" fileName="${logPath}/elk.log" filePattern="${logPath}/elk.log.%d{yyyy-MM-dd}" immediateFlush="false">
             <Policies>
-                <TimeBasedTriggeringPolicy/>
-                <SizeBasedTriggeringPolicy size="100 MB"/>
+                <TimeBasedTriggeringPolicy />
             </Policies>
-        </RollingFile>
-
-        <RollingFile name="RollingFileWarn" fileName="${sys:user.home}/logs/hpaasvc/warn.log"
-                     filePattern="${sys:user.home}/logs/hpaasvc/$${date:yyyy-MM}/warn-%d{yyyy-MM-dd}-%i.log">
-            <Filters>
-                <ThresholdFilter level="WARN"/>
-                <ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="NEUTRAL"/>
-            </Filters>
-            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
+            <JsonLayout compact="true" eventEol="true" properties="true" locationInfo="true" />
+        </RollingRandomAccessFile>
+         -->
+        <RollingRandomAccessFile name="allFile" fileName="${logPath}/all.log" filePattern="${logPath}/all.log.%d{yyyy-MM-dd}" immediateFlush="false">
             <Policies>
-                <TimeBasedTriggeringPolicy/>
-                <SizeBasedTriggeringPolicy size="100 MB"/>
+                <TimeBasedTriggeringPolicy />
             </Policies>
-        </RollingFile>
+            <PatternLayout pattern="%d %-5p [%t] %m (%F:%L)%c.%M%n" />
+        </RollingRandomAccessFile>
+    </Appenders>
 
-        <RollingFile name="RollingFileError" fileName="${sys:user.home}/logs/hpaasvc/error.log"
-                     filePattern="${sys:user.home}/logs/hpaasvc/$${date:yyyy-MM}/error-%d{yyyy-MM-dd}-%i.log">
-            <ThresholdFilter level="ERROR"/>
-            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
-            <Policies>
-                <TimeBasedTriggeringPolicy/>
-                <SizeBasedTriggeringPolicy size="100 MB"/>
-            </Policies>
-        </RollingFile>
+    <Loggers>
+        <Logger name="dubbo.accesslog" level="info" />
+        <Logger name="dubbo.accesslog.com.dubbo.service.DemoService.sayHello" level="debug" />
 
-    </appenders>
+        <Logger name="org.springframework" level="info" />
+        <Logger name="org.springframework.transaction" level="info" />
+        <Logger name="org.springframework.jdbc" level="info" />
+        <Logger name="org.springframework.jdbc.core.JdbcTemplate" level="info" />
+        <Logger name="org.springframework.jdbc.core.StatementCreatorUtils" level="info" />
+        <Logger name="org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver" level="debug" />
 
-    <loggers>
-        <!--过滤掉spring和hibernate的一些无用的debug信息-->
-        <logger name="org.springframework" level="INFO">
-        </logger>
-        <logger name="org.hibernate" level="INFO">
-        </logger>
-        <root level="all">
-            <appender-ref ref="Console"/>
-            <appender-ref ref="RollingFileInfo"/>
-            <appender-ref ref="RollingFileWarn"/>
-            <appender-ref ref="RollingFileError"/>
-        </root>
-    </loggers>
-
-</configuration>
+        <AsyncRoot level="info" includeLocation="true">
+            <AppenderRef ref="console" level="all" />
+<!--             <AppenderRef ref="elkFile" /> -->
+            <AppenderRef ref="allFile" />
+        </AsyncRoot>
+    </Loggers>
+</Configuration>

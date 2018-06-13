@@ -22,8 +22,9 @@
 	<!-- 单个注册中心 -->
 	<!-- <dubbo:registry protocol="zookeeper" address="zookeeper://192.168.5.128:2181" /> -->
 	<dubbo:registry protocol="zookeeper" address="192.168.40.201:2181,192.168.40.202:2181,192.168.40.203:2181" />
-	<dubbo:protocol name="dubbo" port="20888"/>
-	
+	<dubbo:protocol name="dubbo" port="20888" accesslog="true" threadpool="cached" threads="500"/>
+	<dubbo:provider protocol="dubbo" filter="-exception,-accesslog,accesslog2"/>
+
 	<import resource="classpath:/dubbo-api/client.xml" />
 	<dubbo:application name="demo-provider"/>
 </beans>
